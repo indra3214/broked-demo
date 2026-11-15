@@ -1,0 +1,168 @@
+/* БрокЕд демо 2 — путь клиента: лендинг, регистрация, пустой кабинет, установка, нижняя панель шагов */
+
+/* ---------- каркас ---------- */
+@media (min-width: 981px) { :root { --frame-h: max(480px, calc(100vh - var(--bar-h, 64px) - 16px - var(--guide-h, 0px))); } }
+@media (max-width: 980px) { html.guided body { padding-bottom: calc(var(--guide-h, 0px) + 12px); } }
+.site.onb-full > .site-head, .site.onb-full > #w-view, .site.onb-view > #w-view { display: none; }
+.site.onb-view .site-nav, .site.onb-view .site-user { opacity: .35; pointer-events: none; }
+.appwin.onb > .aw-body, .appwin.onb > .aw-status { display: none; }
+.appwin.onb .aw-sync { visibility: hidden; }
+.aw-onb { flex: 1; min-height: 0; overflow: auto; display: grid; place-items: center; padding: 28px 20px; background: radial-gradient(90% 70% at 50% 0%, rgba(124, 13, 201, .16) 0%, transparent 70%); }
+.aw-onb[hidden], .w-onb[hidden] { display: none; }
+.tag-soon { align-self: flex-start; font-size: 11px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--amber); background: rgba(247, 184, 75, .13); padding: 3px 10px; border-radius: 99px; }
+
+/* ---------- стартовое окно и финал ---------- */
+.road { list-style: none; padding: 0; margin: 4px 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.road li { background: #121115; border: 1px solid #2B2931; border-radius: 18px; padding: 14px 16px; display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; align-items: center; }
+.road-n { grid-row: span 2; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font-family: var(--f-display); font-size: 12px; color: var(--violet); background: var(--violet-soft); }
+.road b { font-size: 14px; } .road small { color: var(--muted); font-size: 12px; line-height: 1.3; }
+.fin-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.fin-grid div { background: #121115; border: 1px solid #2B2931; border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 2px; }
+.fin-grid b { font-family: var(--f-display); font-size: 30px; color: var(--violet); line-height: 1.1; }
+.fin-grid span { color: var(--muted); font-size: 12.5px; }
+.fin-grid .key { border-color: rgba(80, 240, 140, .35); background: var(--green-soft); } .fin-grid .key b { color: var(--green); }
+.fin > .link { align-self: center; } .fin a.btn-g { text-decoration: none; }
+
+/* ---------- схема «брокеры – ПК – сайт» ---------- */
+.flow { display: flex; align-items: stretch; gap: 0; }
+.flow-node { flex: 1 1 0; min-width: 0; background: #121115; border: 1px solid #2B2931; border-radius: 20px; padding: 16px 18px; display: flex; flex-direction: column; gap: 6px; justify-content: center; }
+.flow-node b { display: flex; align-items: center; gap: 6px; font-size: 15px; } .flow-node small { color: var(--muted); font-size: 12px; }
+.flow-node.pc { border-color: rgba(80, 240, 140, .4); background: linear-gradient(180deg, rgba(80, 240, 140, .1), rgba(80, 240, 140, .03)); } .flow-node.pc b svg { color: var(--green); flex: none; }
+.flow-brk { display: flex; flex-wrap: wrap; gap: 4px 10px; font-weight: 700; font-size: 13px; } .flow-brk span { display: inline-flex; align-items: center; gap: 5px; }
+.flow-link { flex: 0 0 74px; position: relative; display: flex; align-items: center; justify-content: center; gap: 7px; }
+.flow-link i { width: 6px; height: 6px; border-radius: 50%; background: var(--violet); opacity: .25; animation: flowdot 1.5s infinite; }
+.flow-link i:nth-child(2) { animation-delay: .25s; } .flow-link i:nth-child(3) { animation-delay: .5s; }
+.flow-link.out i { background: var(--green); }
+.flow-link em { position: absolute; top: calc(50% + 10px); font-style: normal; font-size: 10.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+@keyframes flowdot { 0%, 100% { opacity: .2; transform: scale(.8); } 40% { opacity: 1; transform: scale(1.25); } }
+
+/* ---------- лендинг ---------- */
+.lp { max-width: 1120px; margin: 0 auto; padding: 0 28px 44px; display: flex; flex-direction: column; gap: 30px; }
+.lp-head { display: flex; align-items: center; gap: 18px; padding: 16px 0; } .lp-sp { flex: 1; }
+.lp-hero { display: flex; flex-direction: column; gap: 16px; padding: clamp(14px, 4vh, 44px) 0 4px; max-width: 880px; }
+.lp-hero h1 { font-family: var(--f-display); font-weight: 700; font-size: clamp(30px, 5vw, 60px); line-height: 1.06; text-transform: uppercase; letter-spacing: .01em; }
+.lp-hero h1 em { font-style: normal; background: linear-gradient(90deg, var(--violet), var(--green)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lp-hero .lead { font-size: 17px; max-width: 62ch; margin: 0; }
+.lp-cta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 6px; }
+.lp-feats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.lp-feats .card { display: flex; flex-direction: column; gap: 8px; }
+.lp-feats h3 { font-family: var(--f-display); font-weight: 500; font-size: 15px; text-transform: uppercase; letter-spacing: .03em; }
+.lp-feats p { color: #C9C5D0; }
+.lp-ico { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-family: var(--f-display); font-size: 13px; color: var(--green); background: var(--green-soft); }
+.lp-foot { text-align: center; }
+
+/* ---------- регистрация ---------- */
+.su { max-width: 480px; margin: 0 auto; padding: 22px 16px 44px; display: flex; flex-direction: column; gap: 12px; }
+.su-back { align-self: flex-start; }
+.su-card { display: flex; flex-direction: column; gap: 14px; padding: 30px; }
+.su-card h2 { font-family: var(--f-display); font-weight: 700; font-size: 22px; text-transform: uppercase; }
+.su-plan { display: flex; flex-direction: column; gap: 3px; padding: 12px 14px; border-radius: 16px; background: var(--violet-soft); border: 1px solid rgba(162, 77, 240, .35); }
+.su-plan span { color: #CFCBD6; font-size: 12.5px; }
+
+/* ---------- пустой кабинет ---------- */
+.oe-grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+.oe-steps { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; }
+.oe-steps li { display: grid; grid-template-columns: auto 1fr; gap: 14px; padding: 16px 0; border-top: 1px solid var(--line); opacity: .55; }
+.oe-steps li:first-child { border-top: 0; padding-top: 2px; } .oe-steps li:last-child { padding-bottom: 2px; }
+.oe-steps li.cur { opacity: 1; }
+.oe-n { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-family: var(--f-display); font-size: 13px; background: #3A3840; }
+.oe-steps li.cur .oe-n { background: var(--violet); color: #fff; }
+.oe-steps b { font-size: 16px; } .oe-steps p { color: var(--muted); margin-top: 2px; max-width: 56ch; }
+.oe-dl { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 12px; } .oe-prog { flex: 1 1 160px; max-width: 260px; }
+.oe-side { display: flex; flex-direction: column; gap: 18px; }
+.oe-soon, .oe-see { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.oe-soon b, .oe-see b { font-size: 15px; }
+.oe-see ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+.oe-see li { padding-left: 24px; position: relative; color: #CFCBD6; }
+.oe-see li::before { position: absolute; left: 0; font-weight: 800; } .oe-see li.yes::before { content: '✓'; color: var(--green); } .oe-see li.no::before { content: '×'; color: var(--red); } .oe-see li.no { color: var(--muted); }
+.oe-ghost { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 14px; } .oe-ghost i { height: 74px; border-radius: 22px; border: 1.5px dashed #34323A; }
+
+/* ---------- окно приложения до первого брокера ---------- */
+.do-card { width: min(480px, 100%); background: var(--card); border: 1px solid #34323A; border-radius: var(--r-card); padding: 28px; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 30px 80px rgba(0, 0, 0, .5); font-size: 14px; }
+.do-card h3 { font-family: var(--f-display); font-weight: 500; font-size: 18px; }
+.do-card > .btn-d { align-self: flex-start; }
+.ins-h { display: flex; align-items: center; gap: 12px; } .ins-h b { display: block; font-family: var(--f-display); font-weight: 500; font-size: 16px; } .ins-h small { color: var(--muted); }
+.ins-list { list-style: none; padding: 12px 14px; margin: 0; border-radius: 14px; background: #1E1D22; display: flex; flex-direction: column; gap: 4px; font-size: 12.5px; color: var(--muted); }
+.do-card .prog { flex: none; }
+.fb { width: min(1040px, 100%); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 22px; align-items: center; font-size: 14px; }
+.fb-l, .fb-r { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.fb h2 { font-family: var(--f-display); font-weight: 700; font-size: clamp(20px, 2.4vw, 28px); text-transform: uppercase; line-height: 1.15; }
+.fb-list button { padding: 16px 18px; font-size: 15px; } .fb-list button small { font-size: 12px; }
+.fb-r { background: var(--card); border: 1px solid #34323A; border-radius: var(--r-card); padding: 22px; }
+.fb-r .flow { flex-direction: column; } .fb-r .flow-link { flex: 0 0 34px; flex-direction: column; gap: 5px; } .fb-r .flow-link em { top: 50%; left: calc(50% + 14px); transform: translateY(-50%); }
+.fb-facts { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: #CFCBD6; }
+.fb-facts li { padding-left: 22px; position: relative; } .fb-facts li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 800; }
+
+/* ---------- мастер подключения и ключи ---------- */
+.wz-modal .modal { width: min(520px, 100%); }
+.wz-rights { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.wz-rights button { text-align: left; padding: 12px 14px; border-radius: 16px; border: 1.5px solid #3A3840; display: flex; flex-direction: column; gap: 3px; }
+.wz-rights button small { color: var(--muted); font-size: 11.5px; line-height: 1.3; }
+.wz-rights button.on { border-color: var(--green); background: var(--green-soft); }
+.wz-log li { animation: tin .25s both; }
+.brk-rights { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; font-size: 12.5px; color: var(--muted); padding: 8px 12px; border-radius: 12px; background: #1E1D22; }
+.brk-rights b { color: var(--text); } .brk-rights.ro b { color: var(--amber); } .brk-rights.rw b { color: var(--green); }
+.btn-d.sm { min-height: 34px; padding: 0 14px; font-size: 10.5px; }
+.sw.off { opacity: .45; cursor: not-allowed; } .sw.off input { cursor: not-allowed; }
+.tk-nokey { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; padding: 6px 0 16px; } .tk-nokey p { color: var(--muted); }
+.tkm { display: flex; flex-direction: column; gap: 12px; }
+
+/* ---------- нижняя панель пути ---------- */
+.guide { position: fixed; left: 0; right: 0; bottom: 0; z-index: 70; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 8px 26px; padding: 12px 22px calc(14px + env(safe-area-inset-bottom, 0px)); background: rgba(24, 22, 30, .97); border-top: 1px solid #3A3644; box-shadow: 0 -18px 50px rgba(0, 0, 0, .55); }
+.guide[hidden] { display: none; }
+.g-ch { list-style: none; padding: 0; margin: 0; display: flex; align-items: center; gap: 4px; }
+.g-ch li { display: flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 700; color: var(--faint); }
+.g-ch li + li::before { content: ''; width: 12px; height: 2px; background: #3A3840; border-radius: 1px; }
+.g-ch i { font-style: normal; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: #2E2C35; color: var(--muted); font-size: 11px; }
+.g-ch span { display: none; }
+.g-ch li.on { color: var(--text); } .g-ch li.on span { display: inline; } .g-ch li.on i { background: var(--violet); color: #fff; box-shadow: 0 0 0 4px var(--violet-soft); }
+.g-ch li.ok i { background: var(--green-soft); color: var(--green); } .g-ch li.ok + li::before { background: var(--green-btn); }
+.g-body { min-width: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0 14px; align-items: baseline; }
+.g-n { grid-column: 1 / -1; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.g-n b { color: var(--amber); }
+.g-body h3 { font-family: var(--f-display); font-weight: 500; font-size: 15px; white-space: nowrap; }
+.g-body p { color: #CFCBD6; font-size: 13.5px; line-height: 1.4; }
+.g-act { display: flex; align-items: center; gap: 10px; }
+.g-act .link { color: var(--muted); font-weight: 600; font-size: 12px; white-space: nowrap; } .g-act .link:hover { color: var(--text); }
+.g-act .btn-g { white-space: nowrap; }
+.g-bar { position: absolute; left: 0; right: 0; top: -1px; height: 2px; } .g-bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--violet), var(--green)); transition: width .5s; }
+.guide.done .g-body h3::after { content: ' ✓'; color: var(--green); }
+.guide.done .g-body { animation: gdone .5s; }
+@keyframes gdone { 0% { opacity: 1; } 100% { opacity: .35; transform: translateY(-4px); } }
+#g-ring { position: fixed; z-index: 65; pointer-events: none; box-sizing: border-box; border: 2px solid var(--green); animation: gring 1.4s infinite; }
+#g-ring[hidden] { display: none; }
+@keyframes gring { 0% { box-shadow: 0 0 0 0 rgba(80, 240, 140, .55); } 70% { box-shadow: 0 0 0 12px rgba(80, 240, 140, 0); } 100% { box-shadow: 0 0 0 0 rgba(80, 240, 140, 0); } }
+@media (prefers-reduced-motion: reduce) { #g-ring, .flow-link i { animation: none; } .flow-link i { opacity: .7; } }
+
+/* ---------- средние и узкие экраны ---------- */
+@media (max-width: 1280px) {
+  .guide { grid-template-columns: minmax(0, 1fr) auto; gap: 6px 18px; }
+  .g-ch { grid-column: 1 / -1; }
+  .g-body { grid-template-columns: minmax(0, 1fr); } .g-body h3 { white-space: normal; }
+}
+@media (max-width: 980px) {
+  .fb { grid-template-columns: minmax(0, 1fr); } .aw-onb { padding: 20px 14px; min-height: 420px; }
+  .oe-grid { grid-template-columns: minmax(0, 1fr); }
+  .lp { padding: 0 16px 32px; gap: 22px; } .lp-feats { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 720px) {
+  .guide { grid-template-columns: minmax(0, 1fr); padding: 10px 14px calc(12px + env(safe-area-inset-bottom, 0px)); gap: 6px; }
+  .g-ch li.on span { font-size: 11px; } .g-ch i { width: 20px; height: 20px; font-size: 10px; } .g-ch li + li::before { width: 6px; }
+  .g-body p { font-size: 13px; } .g-body h3 { font-size: 14px; }
+  .g-act { justify-content: space-between; flex-wrap: wrap; } .g-act .link { margin-right: auto; } .g-act .btn-g { min-height: 40px; padding: 0 14px; }
+  .road { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; } .road li { padding: 10px 12px; } .road small { display: none; }
+  .fin-grid { grid-template-columns: 1fr 1fr; }
+  .flow { flex-direction: column; } .flow-link { flex: 0 0 30px; flex-direction: column; gap: 4px; } .flow-link em { top: 50%; left: calc(50% + 14px); transform: translateY(-50%); }
+  .lp-head .link { display: none; } .lp-hero .lead { font-size: 15px; }
+  .su-card { padding: 22px 18px; } .wz-rights { grid-template-columns: 1fr; } .do-card { padding: 22px 18px; }
+  .oe-ghost { display: none; }
+}
+/* модальные окна не уходят под нижнюю панель пути */
+html.guided body > .modal-wrap { padding-bottom: calc(var(--guide-h, 0px) + 16px); }
+@media (max-width: 980px) { html.guided .modal-wrap { padding-bottom: calc(var(--guide-h, 0px) + 12px); align-items: start; overflow: auto; } html.guided .modal-wrap .modal { max-height: none; } }
+@media (max-width: 720px) {
+  .g-act { flex-wrap: nowrap; gap: 6px; } .g-act .link { font-size: 11px; } .g-act .btn-g { min-height: 38px; padding: 0 10px; font-size: 10px; letter-spacing: .02em; }
+}
+@media (max-width: 420px) { .g-act #g-skip { display: none; } .g-act .btn-g { flex: 1; } }
+/* на телефоне верхняя панель демо не прилипает во время пути: экран и так занят нижней панелью шагов */
+@media (max-width: 720px) { html.guided .demo-bar { position: static; } }
