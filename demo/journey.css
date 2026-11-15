@@ -1,4 +1,4 @@
-/* БрокЕд демо 2 — путь клиента: лендинг, регистрация, пустой кабинет, установка, нижняя панель шагов */
+/* БРОКЕД демо 2 — путь клиента: лендинг, регистрация, пустой кабинет, установка, нижняя панель шагов */
 
 /* ---------- каркас ---------- */
 @media (min-width: 981px) { :root { --frame-h: max(480px, calc(100vh - var(--bar-h, 64px) - 16px - var(--guide-h, 0px))); } }
@@ -170,3 +170,19 @@ html.guided body > .modal-wrap { padding-bottom: calc(var(--guide-h, 0px) + 16px
 @media (min-width: 981px) { .site-view section, .site-view .card, .site-view [id] { scroll-margin-top: 96px; } }
 /* на узких экранах уведомления фиксированы к экрану: поднимаем их над нижней панелью пути */
 @media (max-width: 980px) { html.guided .toasts { bottom: calc(var(--guide-h, 0px) + 12px); } }
+/* шапка демо: логотип и «На сайт» ведут на лендинг, полоска дня – фиксированной ширины и не наезжает на «Пуск» */
+.db-home { display: flex; align-items: center; gap: 8px; color: inherit; text-decoration: none; }
+.db-site { font-size: 12.5px; font-weight: 700; color: var(--muted); text-decoration: none; padding: 6px 10px; border-radius: 99px; border: 1px solid #2D2B33; white-space: nowrap; }
+.db-site:hover { color: var(--text); border-color: var(--violet); }
+.db-clock { margin-right: 6px; }
+.db-clock small .db-day { display: block; width: 44px; height: 3px; border-radius: 2px; background: #2E2C35; overflow: hidden; flex: none; }
+.db-clock small .db-day i { display: block; height: 100%; max-width: none; background: var(--violet); }
+@media (max-width: 640px) { .db-demo { display: none; } }
+/* на ноутбуке 1280 px шапка демо помещается в одну строку: плашка «данные вымышлены» есть на стартовом окне */
+@media (max-width: 1600px) and (min-width: 981px) { .db-demo { display: none; } .demo-bar { gap: 10px; } .db-ctl { gap: 6px; } }
+/* на телефоне таблица целевой структуры помещается в карточку: колонку отклонения прячем, степпер уже */
+@media (max-width: 640px) {
+  .tg-table th:nth-child(4), .tg-table td:nth-child(4) { display: none; }
+  .tg-table { width: 100%; }
+  .tg-table .stepper button { width: 30px; } .tg-table .stepper input { width: 40px; }
+}

@@ -1,4 +1,4 @@
-/* БрокЕд демо — режим «Сайт» */
+/* БРОКЕД демо — режим «Сайт» */
 (function (B) {
   'use strict';
   const $ = B.$, $$ = B.$$;
@@ -59,7 +59,7 @@
       </div>
       <div class="site">
         <header class="site-head">
-          <a class="site-logo" href="#" data-nav="portfolio" aria-label="БрокЕд, на главную">${B.logoIcon(34)}${B.wordmark()}</a>
+          <a class="site-logo" href="#" data-nav="portfolio" aria-label="БРОКЕД, на главную">${B.logoIcon(34)}${B.wordmark()}</a>
           <nav class="site-nav" aria-label="Разделы сайта">
             <button data-nav="portfolio">Портфель</button><button data-nav="analytics">Аналитика</button><button data-nav="markets">Рынки</button><button data-nav="news">Новости<em class="nav-badge" id="w-news-badge" hidden></em></button><button data-nav="tariffs">Тарифы</button>
           </nav>
@@ -1167,7 +1167,7 @@
           <div class="card-head"><h2>Приложение для ПК</h2></div>
           <div class="ac-dev"><span class="ac-ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M3 5h18v11H3zM8 20h8M12 16v4" fill="none" stroke="currentColor" stroke-width="2"/></svg></span>
             <div><b>DEMO-PC · Windows 11</b><span class="muted" id="ac-sync"></span></div></div>
-          <div class="ac-row"><span>Версия</span><b>БрокЕд 1.0 (демо)</b></div>
+          <div class="ac-row"><span>Версия</span><b>БРОКЕД 1.0 (демо)</b></div>
           <div class="ac-row"><span>Торговля</span>${W.tariff === 'Premium' ? '<b class="up">разрешена</b>' : '<b class="down">нужен Premium</b>'}</div>
           <button class="btn-g wide" data-ac="desk">Открыть приложение</button>
         </section>

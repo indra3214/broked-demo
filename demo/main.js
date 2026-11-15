@@ -1,4 +1,4 @@
-/* БрокЕд демо 2 — каркас: режимы, время, старт игры, путь клиента */
+/* БРОКЕД демо 2 — каркас: режимы, время, старт игры, путь клиента */
 (function (B) {
   'use strict';
   const $ = B.$, $$ = B.$$;
@@ -62,7 +62,7 @@
   function renderClock() {
     const S = B.S(); if (!S) return;
     const day = S.day - B.HIST + 1;
-    $('#db-clock').innerHTML = `<b class="num">${B.dateFull(S.day)}</b><span class="num">${B.timeOf(S.tick)}</span><small><span class="db-prof">${S.strategy.short}</span> · день ${day} <i style="width:${(S.tick / B.TPD * 100).toFixed(1)}%"></i></small>`;
+    $('#db-clock').innerHTML = `<b class="num">${B.dateFull(S.day)}</b><span class="num">${B.timeOf(S.tick)}</span><small><span class="db-prof">${S.strategy.short}</span> · день ${day} <em class="db-day" aria-hidden="true"><i style="width:${(S.tick / B.TPD * 100).toFixed(1)}%"></i></em></small>`;
     $('#db-play').innerHTML = App.paused ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg><span>Пуск</span>' : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="currentColor"/></svg><span>Пауза</span>';
     $('#db-play').setAttribute('aria-label', App.paused ? 'Запустить время' : 'Поставить на паузу');
     $$('[data-speed]').forEach(b => b.classList.toggle('on', +b.dataset.speed === App.speed));
@@ -96,7 +96,7 @@
     const m = B.modal(`
       <div class="intro">
         <div class="intro-logo">${B.logoIcon(56)}${B.wordmark()}</div>
-        <span class="eyebrow">Демо 2 · все бумаги, брокеры и котировки вымышлены</span>
+        <span class="eyebrow">Демо · все бумаги, брокеры и котировки вымышлены</span>
         <h2>Пройдите путь клиента от регистрации до первой сделки</h2>
         <p class="lead">Вы начнёте с пустого кабинета, как новый пользователь: создадите аккаунт, установите приложение, подключите брокеров и увидите, как три счёта собираются в один портфель.</p>
         <ol class="road">${CHAPTERS.map(([n, d], i) => `<li><span class="road-n">${i + 1}</span><b>${n}</b><small>${d}</small></li>`).join('')}</ol>
@@ -114,7 +114,7 @@
   const flow = () => `<div class="flow" aria-label="Схема: брокеры, приложение на вашем ПК, сайт">
       <div class="flow-node"><span class="eyebrow">Брокеры</span><div class="flow-brk">${B.ALL_BROKERS.map(b => `<span><i class="bdot" style="background:${b.color}"></i>${b.short}</span>`).join('')}</div><small>счета и заявки</small></div>
       <div class="flow-link"><i></i><i></i><i></i><em>API</em></div>
-      <div class="flow-node pc"><span class="eyebrow">Ваш компьютер</span><b>${LOCK} Приложение БрокЕд</b><small>ключи зашифрованы и хранятся здесь</small></div>
+      <div class="flow-node pc"><span class="eyebrow">Ваш компьютер</span><b>${LOCK} Приложение БРОКЕД</b><small>ключи зашифрованы и хранятся здесь</small></div>
       <div class="flow-link out"><i></i><i></i><i></i><em>снимки</em></div>
       <div class="flow-node"><span class="eyebrow">Сайт</span><b>Аналитика</b><small>позиции и деньги, без ключей</small></div>
     </div>`;
@@ -206,7 +206,7 @@
       if (p >= 100) {
         clearInterval(iv); btn.disabled = false; btn.textContent = 'Открыть установщик'; pr.hidden = true;
         if (Onb.desk === 'none') setDeskOnb('install');
-        B.toast('#w-toasts', 'Файл BrokED-Setup.exe скачан', 'good');
+        B.toast('#w-toasts', 'Файл BROKED-Setup.exe скачан', 'good');
         setTimeout(() => { if (Onb.desk === 'install' && App.mode === 'web') App.setMode('desk'); }, B.reduced ? 100 : 700);
       }
     }, B.reduced ? 30 : 110);
@@ -222,15 +222,15 @@
       $('#do-web').onclick = () => App.setMode('web');
     }
     if (state === 'install') {
-      box.innerHTML = `<div class="do-card ins"><div class="ins-h">${B.logoIcon(30)}<div><b>Установка БрокЕд</b><small>BrokED-Setup.exe · версия 0.9, демо</small></div></div>
+      box.innerHTML = `<div class="do-card ins"><div class="ins-h">${B.logoIcon(30)}<div><b>Установка БРОКЕД</b><small>BROKED-Setup.exe · версия 0.9, демо</small></div></div>
         <p>Приложение подключается к брокерам по API, показывает терминал и передаёт на сайт снимки портфеля. Ключи брокеров остаются на этом компьютере.</p>
-        <ul class="ins-list"><li>Папка установки: C:\\Program Files\\BrokED</li><li>Хранилище ключей: защищённое хранилище Windows</li><li>Автозапуск: выключен</li></ul>
+        <ul class="ins-list"><li>Папка установки: C:\\Program Files\\BROKED</li><li>Хранилище ключей: защищённое хранилище Windows</li><li>Автозапуск: выключен</li></ul>
         <div class="prog" id="ins-prog" hidden><i style="width:0"></i></div><ul class="wz-log" id="ins-log"></ul>
         <div class="m-actions"><button class="btn-d" id="ins-go">Установить</button></div></div>`;
       $('#ins-go').onclick = runInstall;
     }
     if (state === 'login') {
-      box.innerHTML = `<form class="do-card lg" id="lg-form"><div class="ins-h">${B.logoIcon(30)}<div><b>Вход в БрокЕд</b><small>тот же аккаунт, что на сайте</small></div></div>
+      box.innerHTML = `<form class="do-card lg" id="lg-form"><div class="ins-h">${B.logoIcon(30)}<div><b>Вход в БРОКЕД</b><small>тот же аккаунт, что на сайте</small></div></div>
         <label class="tk-fld"><span>Электронная почта</span><input id="lg-mail" value="${USER.mail}"></label>
         <label class="tk-fld"><span>Пароль</span><input id="lg-pass" type="password" value="demo-password"></label>
         <p class="tk-note">Лицензия привязывается к этому компьютеру. Без связи с сервером приложение работает до 72 часов.</p>
@@ -247,7 +247,7 @@
           <div class="wz-brokers fb-list" id="fb-list">${B.ALL_BROKERS.map(b => { const n = B.ALL_ACCOUNTS.filter(a => a.broker === b.id).length; return `<button class="pick" data-fbpick="${b.id}"><i class="bdot" style="background:${b.color}"></i>${b.name}<small>${n} ${n === 1 ? 'счёт' : 'счёта'}</small></button>`; }).join('')}</div>
           <p class="tk-note">Все брокеры в демо вымышлены.</p></div>
         <div class="fb-r"><span class="eyebrow">Как это устроено</span>${flow()}
-          <ul class="fb-facts"><li>Ключ шифруется AES-256, мастер-ключ лежит в хранилище ОС</li><li>На сайт уходят позиции, деньги и сделки</li><li>Сервер БрокЕд ключ не получает и не хранит</li></ul></div>
+          <ul class="fb-facts"><li>Ключ шифруется AES-256, мастер-ключ лежит в хранилище ОС</li><li>На сайт уходят позиции, деньги и сделки</li><li>Сервер БРОКЕД ключ не получает и не хранит</li></ul></div>
       </div>`;
       $('#fb-list').onclick = e => { const b = e.target.closest('[data-fbpick]'); if (b) B.Desk.connectWizard(b.dataset.fbpick); };
     }
@@ -260,7 +260,7 @@
     let i = 0; const iv = setInterval(() => {
       if (!log.isConnected) { clearInterval(iv); return; }
       log.insertAdjacentHTML('beforeend', `<li>✓ ${lines[i]}</li>`); i++; pr.firstElementChild.style.width = (i / lines.length * 100) + '%';
-      if (i >= lines.length) { clearInterval(iv); btn.disabled = false; btn.textContent = 'Запустить БрокЕд'; btn.dataset.run = '1'; btn.id = 'ins-run'; }
+      if (i >= lines.length) { clearInterval(iv); btn.disabled = false; btn.textContent = 'Запустить БРОКЕД'; btn.dataset.run = '1'; btn.id = 'ins-run'; }
     }, B.reduced ? 60 : 420);
   }
   // первый брокер подключён: пустые экраны больше не нужны, время пошло
@@ -307,7 +307,7 @@
       text: 'Аккаунт есть, а данных нет: сайт сам к брокерам не ходит. Скачайте приложение для ПК.',
       target: () => '#onb-dl', check: () => Onb.desk !== 'none', auto: startDownload },
     { id: 'install', ch: 1, mode: 'desk', title: 'Установка приложения',
-      text: 'Установщик открылся на компьютере клиента. Нажмите «Установить», а потом «Запустить БрокЕд».',
+      text: 'Установщик открылся на компьютере клиента. Нажмите «Установить», а потом «Запустить БРОКЕД».',
       target: () => firstVis('#ins-run', '#ins-go'), check: () => Onb.desk !== 'install' && Onb.desk !== 'none', auto: () => { const b = $('#ins-run') || $('#ins-go'); if (b) b.click(); } },
     { id: 'login', ch: 1, mode: 'desk', title: 'Вход в приложение',
       text: 'Тот же аккаунт, что на сайте. После входа лицензия привязывается к этому ПК.',
@@ -512,7 +512,7 @@
     const root = $('#app');
     root.innerHTML = `
       <header class="demo-bar">
-        <div class="db-brand">${B.logoIcon(28)}${B.wordmark()}<span class="db-demo">Демо 2 · данные вымышлены</span></div>
+        <div class="db-brand"><a class="db-home" href="../" title="На главную страницу БРОКЕД">${B.logoIcon(28)}${B.wordmark()}</a><span class="db-demo">Демо · данные вымышлены</span><a class="db-site" href="../">← На сайт</a></div>
         <div class="db-switch" role="tablist" aria-label="Компонент продукта">
           <button data-mode="web" role="tab" class="on" aria-selected="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 9h18" stroke="currentColor" stroke-width="2"/></svg>Сайт<em id="web-badge" hidden></em></button>
           <span class="sync-link" id="sync-link" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -527,8 +527,8 @@
         </div>
       </header>
       <main class="stage">
-        <section id="web-frame" class="browser" aria-label="Сайт БрокЕд"></section>
-        <section id="desk-frame" class="appwin" aria-label="Приложение БрокЕд для ПК" hidden></section>
+        <section id="web-frame" class="browser" aria-label="Сайт БРОКЕД"></section>
+        <section id="desk-frame" class="appwin" aria-label="Приложение БРОКЕД для ПК" hidden></section>
       </main>`;
     // высота панели демо – чтобы меню приложения прилипало сразу под ней
     const bar = $('.demo-bar'); const setBar = () => document.documentElement.style.setProperty('--bar-h', bar.offsetHeight + 'px');

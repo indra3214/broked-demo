@@ -1,4 +1,4 @@
-/* БрокЕд демо — режим «Приложение для ПК» */
+/* БРОКЕД демо — режим «Приложение для ПК» */
 (function (B) {
   'use strict';
   const $ = B.$, $$ = B.$$;
@@ -23,7 +23,7 @@
     root.innerHTML = `
       <div class="aw-title">
         <span class="aw-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-        <span class="aw-name">${B.logoIcon(16)}БрокЕд</span>
+        <span class="aw-name">${B.logoIcon(16)}БРОКЕД</span>
         <span class="aw-lic" title="Лицензия привязана к этому ПК">Premium</span>
         <span class="aw-spacer"></span>
         <span class="aw-sync" id="d-sync" title="Позиции и деньги синхронизируются с сайтом"><i></i>Синхронизировано с сайтом</span>
