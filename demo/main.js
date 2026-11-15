@@ -536,6 +536,8 @@
     B.Web.mount($('#web-frame'));
     B.Desk.mount($('#desk-frame'));
     $('#web-frame .site').insertAdjacentHTML('beforeend', '<div id="w-onb" class="w-onb" hidden></div>');
+    // уведомления сайта живут в окне браузера, а не в прокручиваемой странице: иначе они уезжают вместе с контентом
+    $('#web-frame').appendChild($('#w-toasts'));
     $('#desk-frame .aw-body').insertAdjacentHTML('beforebegin', '<div id="d-onb" class="aw-onb" hidden></div>');
     $('.db-switch').addEventListener('click', e => { const b = e.target.closest('[data-mode]'); if (b) App.setMode(b.dataset.mode); });
     $('#db-play').onclick = () => App.play(App.paused);

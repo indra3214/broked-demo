@@ -168,3 +168,5 @@ html.guided body > .modal-wrap { padding-bottom: calc(var(--guide-h, 0px) + 16px
 @media (max-width: 720px) { html.guided .demo-bar { position: static; } }
 /* при прокрутке к шагу пути карточка встаёт под липкую шапку сайта, а не под неё */
 @media (min-width: 981px) { .site-view section, .site-view .card, .site-view [id] { scroll-margin-top: 96px; } }
+/* на узких экранах уведомления фиксированы к экрану: поднимаем их над нижней панелью пути */
+@media (max-width: 980px) { html.guided .toasts { bottom: calc(var(--guide-h, 0px) + 12px); } }
