@@ -494,7 +494,7 @@
           <div class="key"><b class="num">0</b><span>ключей на сервере</span></div>
         </div>
         <p class="lead">Капитал ${B.rub(snap.value, 0)} теперь виден целиком. Сайт получил только позиции и деньги, а ключи и заявки остались на компьютере клиента.</p>
-        <div class="intro-go"><a class="btn-g big" href="https://broked.s.gy" target="_blank" rel="noopener">Хочу ранний доступ</a><button class="btn-g ghost big" id="fin-free">Исследовать самостоятельно</button></div>
+        <div class="intro-go"><a class="btn-g big" href="../#beta">Хочу ранний доступ</a><button class="btn-g ghost big" id="fin-free">Исследовать самостоятельно</button></div>
         <button class="link" id="fin-again">Пройти путь заново</button>
       </div>`, { cls: 'intro-wrap', onClose: () => { if (!Guide.on) freeMode(); } });
     m.el.querySelector('#fin-free').onclick = () => m.close();
