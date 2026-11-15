@@ -166,3 +166,5 @@ html.guided body > .modal-wrap { padding-bottom: calc(var(--guide-h, 0px) + 16px
 @media (max-width: 420px) { .g-act #g-skip { display: none; } .g-act .btn-g { flex: 1; } }
 /* на телефоне верхняя панель демо не прилипает во время пути: экран и так занят нижней панелью шагов */
 @media (max-width: 720px) { html.guided .demo-bar { position: static; } }
+/* при прокрутке к шагу пути карточка встаёт под липкую шапку сайта, а не под неё */
+@media (min-width: 981px) { .site-view section, .site-view .card, .site-view [id] { scroll-margin-top: 96px; } }

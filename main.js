@@ -470,6 +470,9 @@
     let L = m, T = (bar && !el.closest('.demo-bar') ? bar.getBoundingClientRect().bottom : 0) + m, R = innerWidth - m, Bt = innerHeight - (g ? g.offsetHeight : 0) - m;
     const sc = el.closest('.modal, .aw-main, .site');
     if (sc && innerWidth > 980) { const c = sc.getBoundingClientRect(); L = Math.max(L, c.left + 2); T = Math.max(T, c.top + 2); R = Math.min(R, c.right - 2); Bt = Math.min(Bt, c.bottom - 2); }
+    // липкая шапка сайта закрывает верх прокручиваемой области: рамка не должна на неё заезжать
+    const sh = sc && sc.classList.contains('site') && !el.closest('.site-head') && sc.querySelector(':scope > .site-head');
+    if (sh && getComputedStyle(sh).position === 'sticky' && sh.offsetHeight) T = Math.max(T, sh.getBoundingClientRect().bottom + 4);
     const x1 = Math.max(er.left - pad, L), y1 = Math.max(er.top - pad, T), x2 = Math.min(er.right + pad, R), y2 = Math.min(er.bottom + pad, Bt);
     if (x2 - x1 < 20 || y2 - y1 < 20) { ring.hidden = true; return; }
     ring.hidden = false;
