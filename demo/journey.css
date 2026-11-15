@@ -276,3 +276,22 @@ html.guided body > .modal-wrap { padding-bottom: calc(var(--guide-h, 0px) + 16px
   .toasts, html.guided .toasts { bottom: calc(var(--guide-h, 0px) + 70px); right: 10px; left: 10px; width: auto; }
   .toast { font-size: 12.5px; padding: 8px 12px; }
 }
+/* телефон: компактная панель экскурсии */
+@media (max-width: 640px) {
+  .guide { padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px)); gap: 4px; }
+  .guide .g-ch { display: none; }
+  .g-n { font-size: 10.5px; }
+  .g-body h3 { font-size: 14px; white-space: normal; }
+  .g-body p { font-size: 12.5px; line-height: 1.35; }
+  .g-act { gap: 8px; flex-wrap: nowrap; } .g-act .btn-g { flex: 1; min-height: 38px; padding: 0 10px; font-size: 11px; }
+}
+@media (max-width: 640px) {
+  .modal, .toast, .toasts { box-sizing: border-box; }
+  .modal-wrap { padding: 10px; }
+  .modal, .desk-modal .modal { padding: 18px 16px; gap: 12px; }
+  .intro-wrap .modal { padding: 20px 16px; }
+  .toasts .toast:nth-last-child(n+3) { display: none; }
+}
+@media (max-width: 640px) {
+  input, select, textarea { box-sizing: border-box; max-width: 100%; }
+}
