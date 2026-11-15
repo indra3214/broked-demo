@@ -19,6 +19,7 @@
     accounts: '<path d="M8 11V8a4 4 0 1 1 8 0v3M6 11h12v9H6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>',
   };
   D.mount = function (root) {
+    const SHORT = { terminal: 'Терминал', orders: 'Портфель', deals: 'Заявки', rebalance: 'Ребаланс', accounts: 'Ключи' };
     const nav = [['terminal', 'Терминал'], ['orders', 'Портфель'], ['deals', 'Заявки и сделки', 'd-ord-badge'], ['rebalance', 'Ребалансировка', 'd-reb-badge'], ['accounts', 'Счета и ключи']];
     root.innerHTML = `
       <div class="aw-title">
@@ -30,7 +31,7 @@
       </div>
       <div class="aw-body">
         <nav class="aw-side" aria-label="Разделы приложения">
-          ${nav.map(([k, n, badge]) => `<button data-dnav="${k}" id="d-nav-${k === 'rebalance' ? 'reb' : k}" title="${n}" aria-label="${n}"><svg viewBox="0 0 24 24" aria-hidden="true">${ICON[k]}</svg><span class="tip">${n}</span>${badge ? `<em id="${badge}" hidden></em>` : ''}</button>`).join('')}
+          ${nav.map(([k, n, badge]) => `<button data-dnav="${k}" id="d-nav-${k === 'rebalance' ? 'reb' : k}" title="${n}" aria-label="${n}"><svg viewBox="0 0 24 24" aria-hidden="true">${ICON[k]}</svg><span class="tip"><span class="tl">${n}</span><span class="ts">${SHORT[k]}</span></span>${badge ? `<em id="${badge}" hidden></em>` : ''}</button>`).join('')}
         </nav>
         <div class="aw-main" id="d-view"></div>
       </div>

@@ -13,6 +13,7 @@
     App.mode = mode;
     $('#web-frame').hidden = mode !== 'web';
     $('#desk-frame').hidden = mode !== 'desk';
+    document.body.classList.toggle('mode-desk', mode === 'desk');
     $$('.db-switch [data-mode]').forEach(b => { b.classList.toggle('on', b.dataset.mode === mode); b.setAttribute('aria-selected', b.dataset.mode === mode); });
     if (mode === 'web') { App.unseen = 0; badge(); B.Web.go(B.Web.screen); }
     else B.Desk.go(B.Desk.screen);
@@ -462,12 +463,13 @@
     if (Guide.key !== sel) {
       Guide.key = sel;
       const r0 = el.getBoundingClientRect(); const bar = $('.demo-bar'), g = $('#guide');
-      const top = bar ? bar.getBoundingClientRect().bottom : 0, bot = innerHeight - (g ? g.offsetHeight : 0);
+      const top = bar ? bar.getBoundingClientRect().bottom : 0, bot = Math.min(innerHeight - (g ? g.offsetHeight : 0), navTop(el));
       if (r0.top < top + 8 || r0.bottom > bot - 8) el.scrollIntoView({ block: r0.height > (bot - top) * 0.7 ? 'start' : 'center', behavior: B.reduced ? 'auto' : 'smooth' });
     }
     const er = el.getBoundingClientRect(); const pad = 6; const rad = parseFloat(getComputedStyle(el).borderTopLeftRadius) || 0;
     const bar = $('.demo-bar'), g = $('#guide'); const m = 6;
     let L = m, T = (bar && !el.closest('.demo-bar') ? bar.getBoundingClientRect().bottom : 0) + m, R = innerWidth - m, Bt = innerHeight - (g ? g.offsetHeight : 0) - m;
+    Bt = Math.min(Bt, navTop(el) - m);
     const sc = el.closest('.modal, .aw-main, .site');
     if (sc && innerWidth > 980) { const c = sc.getBoundingClientRect(); L = Math.max(L, c.left + 2); T = Math.max(T, c.top + 2); R = Math.min(R, c.right - 2); Bt = Math.min(Bt, c.bottom - 2); }
     // липкая шапка сайта закрывает верх прокручиваемой области: рамка не должна на неё заезжать
@@ -480,6 +482,11 @@
   }
   // Та же Google-таблица, что и у форм лендинга (Apps Script)
   const FEEDBACK_URL = 'https://script.google.com/macros/s/AKfycbyChZqdywa2G9eK2qW3UskL-0WVUiueKzcmLva8crNjA908nAFF8qJiyc6CYjttaxMK/exec';
+  // нижняя навигация на телефоне: рамка и прокрутка не должны уходить под неё
+  function navTop(el) {
+    const n = [...document.querySelectorAll('.site-nav, .aw-side')].find(x => x.offsetParent !== null && getComputedStyle(x).position === 'fixed');
+    return n && !n.contains(el) ? n.getBoundingClientRect().top : innerHeight;
+  }
   function finale() {
     const S = B.S(); const snap = B.snapshot(allFilter());
     const sec = Math.round((Date.now() - Guide.t0) / 1000);
@@ -544,14 +551,14 @@
         <div class="db-switch" role="tablist" aria-label="Компонент продукта">
           <button data-mode="web" role="tab" class="on" aria-selected="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 9h18" stroke="currentColor" stroke-width="2"/></svg>Сайт<em id="web-badge" hidden></em></button>
           <span class="sync-link" id="sync-link" aria-hidden="true"><i></i><i></i><i></i></span>
-          <button data-mode="desk" role="tab" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 20h8M12 16v4" stroke="currentColor" stroke-width="2"/></svg>Приложение для ПК</button>
+          <button data-mode="desk" role="tab" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 20h8M12 16v4" stroke="currentColor" stroke-width="2"/></svg>Приложение<span class="db-long"> для ПК</span></button>
         </div>
         <div class="db-ctl">
           <div class="db-clock" id="db-clock"></div>
           <button class="db-btn" id="db-play"></button>
           <span class="db-speed" aria-label="Скорость времени"><button data-speed="1">1×</button><button data-speed="4">4×</button></span>
-          <button class="db-btn ghost" id="db-tour">Путь клиента</button>
-          <button class="db-btn ghost" id="db-new" title="Новый случайный портфель">Новая игра</button>
+          <button class="db-btn ghost" id="db-tour" title="Путь клиента"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V4l14 8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span>Путь клиента</span></button>
+          <button class="db-btn ghost" id="db-new" title="Новый случайный портфель"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Новая игра</span></button>
         </div>
       </header>
       <main class="stage">
