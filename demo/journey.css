@@ -186,3 +186,16 @@ html.guided body > .modal-wrap { padding-bottom: calc(var(--guide-h, 0px) + 16px
   .tg-table { width: 100%; }
   .tg-table .stepper button { width: 30px; } .tg-table .stepper input { width: 40px; }
 }
+
+/* Отзыв в финале */
+.fb { align-items: stretch; box-sizing: border-box; width: 100%; min-width: 0; display: flex; flex-direction: column; gap: 10px; padding: 16px; border-radius: 18px; background: #121115; border: 1px solid #2B2931; text-align: left; }
+.fb-h { font-size: 14px; }
+.fb-stars { display: flex; gap: 4px; }
+.fb-stars button { font-size: 28px; line-height: 1; color: #3A3840; background: none; border: 0; padding: 2px; cursor: pointer; transition: color .15s, transform .15s; }
+.fb-stars button:hover { transform: scale(1.12); } .fb-stars button.on { color: #FFC24B; }
+.fb textarea, .fb input { width: 100%; box-sizing: border-box; background: #1B1A1F; border: 1px solid #3A3840; border-radius: 12px; color: var(--text); font: inherit; font-size: 13.5px; padding: 10px 12px; resize: vertical; }
+.fb textarea:focus, .fb input:focus { outline: none; border-color: var(--violet); }
+.fb-row { display: flex; gap: 8px; } .fb-row input { flex: 1; min-width: 0; } .fb-row .btn-g { flex: none; }
+.fb-note { font-size: 12px; color: var(--muted); min-height: 0; } .fb-note:empty { display: none; } .fb-note.warn { color: #FF9C6B; }
+.fb.done { align-items: center; border-color: rgba(80, 240, 140, .35); background: var(--green-soft); }
+@media (max-width: 520px) { .fb-row { flex-direction: column; align-items: stretch; } .fb-row > * { width: 100%; } }

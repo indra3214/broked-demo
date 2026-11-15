@@ -478,6 +478,8 @@
     ring.hidden = false;
     Object.assign(ring.style, { left: x1 + 'px', top: y1 + 'px', width: (x2 - x1) + 'px', height: (y2 - y1) + 'px', borderRadius: (rad ? Math.min(rad + pad, 34) : 12) + 'px' });
   }
+  // Та же Google-таблица, что и у форм лендинга (Apps Script)
+  const FEEDBACK_URL = 'https://script.google.com/macros/s/AKfycbyChZqdywa2G9eK2qW3UskL-0WVUiueKzcmLva8crNjA908nAFF8qJiyc6CYjttaxMK/exec';
   function finale() {
     const S = B.S(); const snap = B.snapshot(allFilter());
     const sec = Math.round((Date.now() - Guide.t0) / 1000);
@@ -494,11 +496,37 @@
           <div class="key"><b class="num">0</b><span>ключей на сервере</span></div>
         </div>
         <p class="lead">Капитал ${B.rub(snap.value, 0)} теперь виден целиком. Сайт получил только позиции и деньги, а ключи и заявки остались на компьютере клиента.</p>
+        <form class="fb" id="fin-fb" novalidate>
+          <b class="fb-h">Как вам демо? Оцените, это займёт 10 секунд</b>
+          <div class="fb-stars" role="radiogroup" aria-label="Оценка">${[1,2,3,4,5].map(n => `<button type="button" data-v="${n}" aria-label="${n} из 5">★</button>`).join('')}</div>
+          <textarea name="message" rows="2" maxlength="1000" placeholder="Что понравилось, чего не хватило, что непонятно?"></textarea>
+          <div class="fb-row"><input name="contact" maxlength="120" placeholder="Telegram или e-mail, если хотите ответа (необязательно)"><button class="btn-g" type="submit">Отправить</button></div>
+          <span class="fb-note"></span>
+        </form>
         <div class="intro-go"><a class="btn-g big" href="../#beta">Хочу ранний доступ</a><button class="btn-g ghost big" id="fin-free">Исследовать самостоятельно</button></div>
         <button class="link" id="fin-again">Пройти путь заново</button>
       </div>`, { cls: 'intro-wrap', onClose: () => { if (!Guide.on) freeMode(); } });
     m.el.querySelector('#fin-free').onclick = () => m.close();
     m.el.querySelector('#fin-again').onclick = () => { m.close(); Guide.start(); };
+    const fb = m.el.querySelector('#fin-fb'); let rate = 0;
+    const note = (t, k) => { const n = fb.querySelector('.fb-note'); n.textContent = t; n.className = 'fb-note ' + (k || ''); };
+    fb.querySelectorAll('.fb-stars button').forEach(b => b.onclick = () => {
+      rate = +b.dataset.v; fb.querySelectorAll('.fb-stars button').forEach(x => x.classList.toggle('on', +x.dataset.v <= rate)); note('');
+    });
+    fb.onsubmit = e => {
+      e.preventDefault();
+      const text = fb.message.value.trim();
+      if (!rate && !text) { note('Поставьте оценку или напишите пару слов', 'warn'); return; }
+      const data = {
+        formType: 'Demo Feedback', contact: fb.contact.value.trim(),
+        message: `Оценка: ${rate ? rate + '/5' : 'нет'}. ${text}`.trim() + ` [путь за ${sec} с, сделок: ${deals}]`,
+        timestamp: new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' }) + ' (МСК)'
+      };
+      const btn = fb.querySelector('[type=submit]'); btn.disabled = true;
+      fetch(FEEDBACK_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(data).toString() })
+        .then(() => { fb.innerHTML = '<b class="fb-h">Спасибо! Отзыв отправлен команде БРОКЕД 💚</b>'; fb.classList.add('done'); })
+        .catch(() => { btn.disabled = false; note('Не получилось отправить. Проверьте интернет и попробуйте ещё раз', 'warn'); });
+    };
   }
   B.onUI(ev => {
     if (!Guide.on) return;
