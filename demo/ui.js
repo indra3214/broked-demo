@@ -208,7 +208,15 @@
     const box = typeof host === 'string' ? B.$(host) : host; if (!box) return;
     const el = document.createElement('div'); el.className = 'toast ' + (kind || ''); el.innerHTML = html;
     box.appendChild(el);
-    setTimeout(() => { el.classList.add('out'); setTimeout(() => el.remove(), 350); }, ms || 3800);
+    const phone = innerWidth <= 640;
+    if (phone) {
+      // телефон: полоска прижата к нижней панели (меню или экскурсия), а не висит посреди экрана
+      let top = innerHeight;
+      document.querySelectorAll('.site-nav, .aw-side, #guide').forEach(x => { if (x.getClientRects().length && getComputedStyle(x).position === 'fixed') top = Math.min(top, x.getBoundingClientRect().top); });
+      box.style.bottom = Math.max(0, innerHeight - top) + 'px';
+      while (box.children.length > 1) box.firstChild.remove();
+    }
+    setTimeout(() => { el.classList.add('out'); setTimeout(() => el.remove(), 350); }, phone ? Math.min(ms || 2800, 2800) : (ms || 3800));
     while (box.children.length > 4) box.firstChild.remove();
   };
 

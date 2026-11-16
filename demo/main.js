@@ -486,7 +486,7 @@
   const FEEDBACK_URL = 'https://script.google.com/macros/s/AKfycbyChZqdywa2G9eK2qW3UskL-0WVUiueKzcmLva8crNjA908nAFF8qJiyc6CYjttaxMK/exec';
   // нижняя навигация на телефоне: рамка и прокрутка не должны уходить под неё
   function navTop(el) {
-    const n = [...document.querySelectorAll('.site-nav, .aw-side')].find(x => x.offsetParent !== null && getComputedStyle(x).position === 'fixed');
+    const n = [...document.querySelectorAll('.site-nav, .aw-side')].find(x => x.getClientRects().length && getComputedStyle(x).position === 'fixed');
     return n && !n.contains(el) ? n.getBoundingClientRect().top : innerHeight;
   }
   function finale() {
