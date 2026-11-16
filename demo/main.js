@@ -466,10 +466,12 @@
       const top = bar ? bar.getBoundingClientRect().bottom : 0, bot = Math.min(innerHeight - (g ? g.offsetHeight : 0), navTop(el));
       if (r0.top < top + 8 || r0.bottom > bot - 8) el.scrollIntoView({ block: r0.height > (bot - top) * 0.7 ? 'start' : 'center', behavior: B.reduced ? 'auto' : 'smooth' });
     }
-    const er = el.getBoundingClientRect(); const pad = 6; const rad = parseFloat(getComputedStyle(el).borderTopLeftRadius) || 0;
+    const er = el.getBoundingClientRect(); const pad = innerWidth <= 640 ? 3 : 6; const rad = parseFloat(getComputedStyle(el).borderTopLeftRadius) || 0;
     const bar = $('.demo-bar'), g = $('#guide'); const m = 6;
     let L = m, T = (bar && !el.closest('.demo-bar') ? bar.getBoundingClientRect().bottom : 0) + m, R = innerWidth - m, Bt = innerHeight - (g ? g.offsetHeight : 0) - m;
     Bt = Math.min(Bt, navTop(el) - m);
+    // кнопка в переключателе: рамка не выходит за его капсулу и не наезжает на соседнюю кнопку
+    const sw = el.closest('.db-switch'); if (sw) { const c = sw.getBoundingClientRect(); L = Math.max(L, c.left + 1); R = Math.min(R, c.right - 1); T = Math.max(T, c.top + 1); Bt = Math.min(Bt, c.bottom - 1); }
     const sc = el.closest('.modal, .aw-main, .site');
     if (sc && innerWidth > 980) { const c = sc.getBoundingClientRect(); L = Math.max(L, c.left + 2); T = Math.max(T, c.top + 2); R = Math.min(R, c.right - 2); Bt = Math.min(Bt, c.bottom - 2); }
     // липкая шапка сайта закрывает верх прокручиваемой области: рамка не должна на неё заезжать
